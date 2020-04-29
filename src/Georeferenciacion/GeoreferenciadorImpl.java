@@ -40,12 +40,4 @@ public class GeoreferenciadorImpl implements Georeferenciador {
         }
         return null;
     }
-
-    @Override
-    public ArrayList<String> prueba() throws RemoteException {
-        ArrayList<String> a = new ArrayList<>();
-        a.add("hola mmundo");
-        a.add("hola mmundo 2");
-        return a;
-    }
 }

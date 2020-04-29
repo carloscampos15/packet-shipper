@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Georeferenciacion;
+package Recepcion;
 
 import Modelos.Ciudad;
 import java.rmi.Remote;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
  *
  * @author carlo
  */
-public interface Georeferenciador extends Remote {
+public interface Recepcion extends Remote {
     ArrayList<Ciudad> obtenerCiudades() throws RemoteException;
-    Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) throws RemoteException;
 }
