@@ -6,6 +6,7 @@
 package Georeferenciacion;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
  * @author carlo
  */
 public class UbicacionBD {
+
     private static Connection connection;
     private static Statement statement;
 
@@ -50,25 +52,36 @@ public class UbicacionBD {
             return connection;
         }
     }
-    
+
+    public static ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws SQLException {
+        nombreDepartamento = nombreDepartamento.trim();
+        ArrayList<Ciudad> ciudades = new ArrayList<>();
+        String sql1 = "SELECT * FROM ciudades WHERE departamento = '" + nombreDepartamento + "'";
+        ResultSet rs = statement.executeQuery(sql1);
+        while (rs.next()) {
+            ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo")));
+        }
+        return ciudades;
+    }
+
+    public static ArrayList<Departamento> obtenerDepartamentos() throws SQLException {
+        ArrayList<Departamento> departamentos = new ArrayList<>();
+        String sql1 = "SELECT * FROM departamentos";
+        ResultSet rs = statement.executeQuery(sql1);
+        while (rs.next()) {
+            departamentos.add(new Departamento(rs.getInt("id"), rs.getString("nombre")));
+        }
+        return departamentos;
+    }
+
     public static Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) throws SQLException {
-        nombreCiudad = nombreCiudad.trim().toLowerCase();
-        String sql1 = "SELECT * FROM ciudades WHERE ciudad = '" + nombreCiudad + "' and departamento = '"+ nombreDepartamento +"'";
+        nombreCiudad = nombreCiudad.trim();
+        nombreDepartamento = nombreDepartamento.trim();
+        String sql1 = "SELECT * FROM ciudades WHERE ciudad = '" + nombreCiudad + "' and departamento = '" + nombreDepartamento + "'";
         ResultSet rs = statement.executeQuery(sql1);
         while (rs.next()) {
             return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo"));
         }
         return null;
-    }
-    
-    public static ArrayList<Ciudad> obtenerCiudades() throws SQLException {
-        ArrayList<Ciudad> ciudades = new ArrayList<>();
-        String sql1 = "SELECT * FROM ciudades";
-        ResultSet rs = statement.executeQuery(sql1);
-        while (rs.next()) {
-            ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo")));
-        }
-        System.out.println(ciudades.size());
-        return ciudades;
     }
 }

@@ -6,6 +6,8 @@
 package Gui;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
+import Modelos.Paquete;
 import Recepcion.Recepcion;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -36,13 +38,31 @@ public class ClienteRecepcion {
         }
     }
 
-    public ArrayList<Ciudad> obtenerCiudades() {
+    public ArrayList<Departamento> obtenerDepartamentos() {
         try {
-            return recepcion.obtenerCiudades();
+            return recepcion.obtenerDepartamentos();
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) {
+        try {
+            return recepcion.obtenerCiudades(nombreDepartamento);
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
         return null;
     }
     
+    public boolean registrarPaquete(Paquete paquete){
+        try {
+            return recepcion.registrarPaquete(paquete);
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return false;
+    }
+
 }

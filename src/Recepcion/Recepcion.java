@@ -6,6 +6,8 @@
 package Recepcion;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
+import Modelos.Paquete;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -15,5 +17,7 @@ import java.util.ArrayList;
  * @author carlo
  */
 public interface Recepcion extends Remote {
-    ArrayList<Ciudad> obtenerCiudades() throws RemoteException;
+    ArrayList<Departamento> obtenerDepartamentos() throws RemoteException;
+    ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException;
+    boolean registrarPaquete(Paquete paquete) throws RemoteException;
 }

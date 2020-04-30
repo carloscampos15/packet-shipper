@@ -6,6 +6,7 @@
 package Georeferenciacion;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class GeoreferenciadorImpl implements Georeferenciador {
     }
 
     @Override
-    public ArrayList<Ciudad> obtenerCiudades() throws RemoteException {
+    public ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException {
         try {
-            return UbicacionBD.obtenerCiudades();
+            return UbicacionBD.obtenerCiudades(nombreDepartamento);
         } catch (SQLException ex) {
             System.out.println("[Servidor] (SQLException)");
         }
@@ -35,6 +36,16 @@ public class GeoreferenciadorImpl implements Georeferenciador {
     public Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) throws RemoteException {
         try {
             return UbicacionBD.obtenerCiudad(nombreCiudad, nombreDepartamento);
+        } catch (SQLException ex) {
+            System.out.println("[Servidor] (SQLException)");
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Departamento> obtenerDepartamentos() throws RemoteException {
+        try {
+            return UbicacionBD.obtenerDepartamentos();
         } catch (SQLException ex) {
             System.out.println("[Servidor] (SQLException)");
         }

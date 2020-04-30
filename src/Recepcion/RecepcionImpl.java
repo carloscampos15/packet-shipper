@@ -6,6 +6,8 @@
 package Recepcion;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
+import Modelos.Paquete;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -16,14 +18,41 @@ import java.util.ArrayList;
 public class RecepcionImpl implements Recepcion{
 
     private ClienteGeorefereciador clienteGeorefereciador;
+    private BufferPaquetes bufferPaquetes;
     
     public RecepcionImpl(String ip) {
         super();
         this.clienteGeorefereciador = new ClienteGeorefereciador(ip);
+        this.bufferPaquetes = new BufferPaquetes();
     }
 
     @Override
-    public ArrayList<Ciudad> obtenerCiudades() throws RemoteException {
-        return this.clienteGeorefereciador.obtenerCiudades();
+    public ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException {
+        return this.clienteGeorefereciador.obtenerCiudades(nombreDepartamento);
     }
+
+    @Override
+    public ArrayList<Departamento> obtenerDepartamentos() throws RemoteException {
+        return this.clienteGeorefereciador.obtenerDepartamentos();
+    }
+
+    @Override
+    public boolean registrarPaquete(Paquete paquete) throws RemoteException {
+        Ciudad ciudad = this.clienteGeorefereciador.obtenerCiudad(paquete.getCiudadReceptor(), paquete.getDepartamentoReceptor());
+        if(ciudad != null){
+            paquete.setLatitudReceptor(ciudad.getLatitud());
+            paquete.setLongitudReceptor(ciudad.getLongitud());
+            
+            
+            
+            bufferPaquetes.encolarPaquete(paquete);
+            
+            
+            
+            return true;
+        }
+        return false;
+    }
+    
+    
 }

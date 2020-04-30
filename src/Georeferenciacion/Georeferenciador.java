@@ -6,6 +6,7 @@
 package Georeferenciacion;
 
 import Modelos.Ciudad;
+import Modelos.Departamento;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  * @author carlo
  */
 public interface Georeferenciador extends Remote {
-    ArrayList<Ciudad> obtenerCiudades() throws RemoteException;
+    ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException;
+    ArrayList<Departamento> obtenerDepartamentos() throws RemoteException;
     Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) throws RemoteException;
 }
