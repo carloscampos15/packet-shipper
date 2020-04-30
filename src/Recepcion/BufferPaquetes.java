@@ -11,8 +11,10 @@ import java.util.ArrayList;
 
 
 /**
+ * 
  *
- * @author carlo
+ * @author Karen Dayanna Castaño Orjuela
+ * @author Carlos Alberto Campos Armero
  */
 public class BufferPaquetes{
     private ArrayList<Paquete> paquetes;

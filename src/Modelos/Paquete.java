@@ -8,8 +8,10 @@ package Modelos;
 import java.io.Serializable;
 
 /**
+ * 
  *
- * @author carlo
+ * @author Karen Dayanna Castaño Orjuela
+ * @author Carlos Alberto Campos Armero
  */
 public class Paquete implements Serializable{
     private String nombreEmisor;

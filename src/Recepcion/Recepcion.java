@@ -13,8 +13,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
+ * 
  *
- * @author carlo
+ * @author Karen Dayanna Castaño Orjuela
+ * @author Carlos Alberto Campos Armero
  */
 public interface Recepcion extends Remote {
     ArrayList<Departamento> obtenerDepartamentos() throws RemoteException;
