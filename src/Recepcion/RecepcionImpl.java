@@ -38,16 +38,14 @@ public class RecepcionImpl implements Recepcion{
 
     @Override
     public boolean registrarPaquete(Paquete paquete) throws RemoteException {
+        //Primer timer de 5 segundos
         Ciudad ciudad = this.clienteGeorefereciador.obtenerCiudad(paquete.getCiudadReceptor(), paquete.getDepartamentoReceptor());
         if(ciudad != null){
             paquete.setLatitudReceptor(ciudad.getLatitud());
             paquete.setLongitudReceptor(ciudad.getLongitud());
             
-            
-            
+            //Segundo timer de 10 segundos
             bufferPaquetes.encolarPaquete(paquete);
-            
-            
             
             return true;
         }

@@ -24,6 +24,5 @@ public class BufferPaquetes{
     
     public void encolarPaquete(Paquete paquete){
         paquetes.add(paquete);
-        
     }
 }

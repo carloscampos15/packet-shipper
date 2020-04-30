@@ -214,13 +214,13 @@ public class Registro extends javax.swing.JDialog {
         
         try{
             pesoPaquete = Float.parseFloat(jTextField3.getText());
-            return;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "El campo peso no es numerico");
+            return;
         }
         
         Paquete paquete = new Paquete(nombreEmisor, departamentoEmisor, ciudadEmisor, nombreReceptor, departamentoReceptor, ciudadReceptor, pesoPaquete);
-        this.clienteRecepcion.registrarPaquete(paquete);
+        System.out.println(this.clienteRecepcion.registrarPaquete(paquete));
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
