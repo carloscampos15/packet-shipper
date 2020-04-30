@@ -12,8 +12,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
+ * 
  *
- * @author carlo
+ * @author Karen Dayanna Castaño Orjuela
+ * @author Carlos Alberto Campos Armero
  */
 public interface Georeferenciador extends Remote {
     ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException;

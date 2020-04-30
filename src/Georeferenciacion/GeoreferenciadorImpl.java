@@ -12,8 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * 
  *
- * @author carlo
+ * @author Karen Dayanna Castaño Orjuela
+ * @author Carlos Alberto Campos Armero
  */
 public class GeoreferenciadorImpl implements Georeferenciador {
 
