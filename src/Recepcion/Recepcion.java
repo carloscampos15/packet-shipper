@@ -22,4 +22,5 @@ public interface Recepcion extends Remote {
     ArrayList<Departamento> obtenerDepartamentos() throws RemoteException;
     ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException;
     boolean registrarPaquete(Paquete paquete) throws RemoteException;
+    boolean georeferenciarPaquete(Paquete paquete) throws RemoteException;
 }

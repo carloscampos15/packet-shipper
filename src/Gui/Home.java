@@ -5,6 +5,8 @@
  */
 package Gui;
 
+import Recepcion.ClienteRecepcion;
+
 /**
  * 
  *

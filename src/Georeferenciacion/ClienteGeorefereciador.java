@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Gui;
+package Georeferenciacion;
 
+import Georeferenciacion.Georeferenciador;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;
@@ -21,18 +22,18 @@ import java.util.ArrayList;
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
  */
-public class ClienteRecepcion {
+public class ClienteGeorefereciador {
 
-    private Recepcion recepcion;
+    private Georeferenciador georeferenciador;
 
-    public ClienteRecepcion(String ip) {
+    public ClienteGeorefereciador(String ip) {
         try {
             System.setProperty("java.security.policy", "client.policy");
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());
             }
-            Registry registry = LocateRegistry.getRegistry(ip, 1710);
-            this.recepcion = (Recepcion) registry.lookup("Recepcion");
+            Registry registry = LocateRegistry.getRegistry(ip, 1099);
+            this.georeferenciador = (Georeferenciador) registry.lookup("Georeferenciador");
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         } catch (NotBoundException ex) {
@@ -42,7 +43,7 @@ public class ClienteRecepcion {
 
     public ArrayList<Departamento> obtenerDepartamentos() {
         try {
-            return recepcion.obtenerDepartamentos();
+            return georeferenciador.obtenerDepartamentos();
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
@@ -51,20 +52,19 @@ public class ClienteRecepcion {
 
     public ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) {
         try {
-            return recepcion.obtenerCiudades(nombreDepartamento);
+            return georeferenciador.obtenerCiudades(nombreDepartamento);
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
         return null;
     }
-    
-    public boolean registrarPaquete(Paquete paquete){
+
+    public boolean georeferenciarPaquete(Recepcion Recepcion, Paquete paquete) {
         try {
-            return recepcion.registrarPaquete(paquete);
+            return georeferenciador.georeferenciarPaquete(Recepcion, paquete);
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
         return false;
     }
-
 }

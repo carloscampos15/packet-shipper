@@ -7,6 +7,8 @@ package Georeferenciacion;
 
 import Modelos.Ciudad;
 import Modelos.Departamento;
+import Modelos.Paquete;
+import Recepcion.Recepcion;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -20,5 +22,5 @@ import java.util.ArrayList;
 public interface Georeferenciador extends Remote {
     ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) throws RemoteException;
     ArrayList<Departamento> obtenerDepartamentos() throws RemoteException;
-    Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) throws RemoteException;
+    boolean georeferenciarPaquete(Recepcion recepcion, Paquete paquete) throws RemoteException;
 }

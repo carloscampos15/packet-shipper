@@ -5,6 +5,7 @@
  */
 package Gui;
 
+import Recepcion.ClienteRecepcion;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;
@@ -177,7 +178,8 @@ public class Registro extends javax.swing.JDialog {
         }
         
         Paquete paquete = new Paquete(nombreEmisor, departamentoEmisor, ciudadEmisor, nombreReceptor, departamentoReceptor, ciudadReceptor, pesoPaquete);
-        System.out.println(this.clienteRecepcion.registrarPaquete(paquete));
+        this.clienteRecepcion.registrarPaquete(paquete);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

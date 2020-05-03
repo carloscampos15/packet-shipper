@@ -5,6 +5,8 @@
  */
 package Recepcion;
 
+import Bodega.ClienteBodega;
+import Georeferenciacion.ClienteGeorefereciador;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;
@@ -20,12 +22,15 @@ import java.util.ArrayList;
 public class RecepcionImpl implements Recepcion{
 
     private ClienteGeorefereciador clienteGeorefereciador;
-    private BufferPaquetes bufferPaquetes;
+    private ClienteBodega clienteBodega;
+    private BufferRecepcion bufferRecepcion;
     
     public RecepcionImpl(String ip) {
         super();
         this.clienteGeorefereciador = new ClienteGeorefereciador(ip);
-        this.bufferPaquetes = new BufferPaquetes();
+        this.clienteBodega = new ClienteBodega(ip);
+        this.bufferRecepcion = new BufferRecepcion(this);
+        this.bufferRecepcion.start();
     }
 
     @Override
@@ -40,19 +45,18 @@ public class RecepcionImpl implements Recepcion{
 
     @Override
     public boolean registrarPaquete(Paquete paquete) throws RemoteException {
-        //Primer timer de 5 segundos
-        Ciudad ciudad = this.clienteGeorefereciador.obtenerCiudad(paquete.getCiudadReceptor(), paquete.getDepartamentoReceptor());
-        if(ciudad != null){
-            paquete.setLatitudReceptor(ciudad.getLatitud());
-            paquete.setLongitudReceptor(ciudad.getLongitud());
-            
-            //Segundo timer de 10 segundos
-            bufferPaquetes.encolarPaquete(paquete);
-            
-            return true;
-        }
-        return false;
+        this.bufferRecepcion.agregarPaquete(paquete);
+        return true;
     }
     
+    @Override
+    public boolean georeferenciarPaquete(Paquete paquete){
+        return this.clienteGeorefereciador.georeferenciarPaquete(this, paquete);
+    }
     
+    public boolean almacenarPaquete(Paquete paquete){
+        //AQUI DEBO ENVIAR A LA BODEGA EL PAQUETE
+        this.clienteBodega.almacenarPaquete(paquete);
+        return true;
+    }
 }

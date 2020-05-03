@@ -5,9 +5,10 @@
  */
 package Recepcion;
 
-import Georeferenciacion.Georeferenciador;
 import Modelos.Ciudad;
 import Modelos.Departamento;
+import Modelos.Paquete;
+import Recepcion.Recepcion;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -20,18 +21,18 @@ import java.util.ArrayList;
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
  */
-public class ClienteGeorefereciador {
+public class ClienteRecepcion {
 
-    private Georeferenciador georeferenciador;
+    private Recepcion recepcion;
 
-    public ClienteGeorefereciador(String ip) {
+    public ClienteRecepcion(String ip) {
         try {
             System.setProperty("java.security.policy", "client.policy");
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());
             }
-            Registry registry = LocateRegistry.getRegistry(ip, 1099);
-            this.georeferenciador = (Georeferenciador) registry.lookup("Georeferenciador");
+            Registry registry = LocateRegistry.getRegistry(ip, 1710);
+            this.recepcion = (Recepcion) registry.lookup("Recepcion");
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         } catch (NotBoundException ex) {
@@ -41,7 +42,7 @@ public class ClienteGeorefereciador {
 
     public ArrayList<Departamento> obtenerDepartamentos() {
         try {
-            return georeferenciador.obtenerDepartamentos();
+            return recepcion.obtenerDepartamentos();
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
@@ -50,19 +51,20 @@ public class ClienteGeorefereciador {
 
     public ArrayList<Ciudad> obtenerCiudades(String nombreDepartamento) {
         try {
-            return georeferenciador.obtenerCiudades(nombreDepartamento);
+            return recepcion.obtenerCiudades(nombreDepartamento);
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
         return null;
+    }
+    
+    public boolean registrarPaquete(Paquete paquete){
+        try {
+            return recepcion.georeferenciarPaquete(paquete);
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return false;
     }
 
-    public Ciudad obtenerCiudad(String nombreCiudad, String nombreDepartamento) {
-        try {
-            return georeferenciador.obtenerCiudad(nombreCiudad, nombreDepartamento);
-        } catch (RemoteException ex) {
-            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
-        }
-        return null;
-    }
 }

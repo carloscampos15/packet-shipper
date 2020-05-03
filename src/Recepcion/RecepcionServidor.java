@@ -49,7 +49,7 @@ public class RecepcionServidor {
             System.out.println("[Servidor] Publicando el stub del objeto remoto en el RMI Registry.");
             registry.rebind("Recepcion", stub);
 
-            System.out.println("[Servidor] Servidor listo!");
+            System.out.println("[Servidor] Servidor listo recepcion!");
         } catch (RemoteException e) {
             System.out.println("[Servidor] (RemoteException): " + e.getMessage());
         }

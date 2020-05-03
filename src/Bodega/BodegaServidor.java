@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Georeferenciacion;
+package Bodega;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,16 +11,13 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * 
  *
- * @author Karen Dayanna Castaño Orjuela
- * @author Carlos Alberto Campos Armero
+ * @author carlo
  */
-public class GeoreferenciadorServidor {
-
+public class BodegaServidor {
     private String ip;
 
-    public GeoreferenciadorServidor(String ip) {
+    public BodegaServidor(String ip) {
         this.ip = ip;
     }
 
@@ -37,25 +34,25 @@ public class GeoreferenciadorServidor {
         
         try{
             System.out.println("[Servidor] Instanciado el objeto que va a ser accedido remotamente.");
-            Georeferenciador georeferenciador = new GeoreferenciadorImpl();
+            Bodega bodega = new BodegaImpl();
             
             System.out.println("[Servidor] Creando el 'stub' del objeto que va a ser accedido remotamente.");
-            Georeferenciador stub = (Georeferenciador) UnicastRemoteObject.exportObject(georeferenciador,0);
+            Bodega stub = (Bodega) UnicastRemoteObject.exportObject(bodega,0);
             
             System.out.println("[Servidor] Iniciando su propio servicio de RMI Registry.");
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(1525);
             
             System.out.println("[Servidor] Publicando el stub del objeto remoto en el RMI Registry.");
-            registry.rebind("Georeferenciador", stub);
+            registry.rebind("Bodega", stub);
             
-            System.out.println("[Servidor] Servidor listo georeferenciador!");
+            System.out.println("[Servidor] Servidor listo bodega!");
         }catch(RemoteException e) {
             System.out.println("[Servidor] (RemoteException): " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        GeoreferenciadorServidor georeferenciadorServidor = new GeoreferenciadorServidor("127.0.0.1");
-        georeferenciadorServidor.iniciarServicios();
+        BodegaServidor bodegaServidor = new BodegaServidor("127.0.0.1");
+        bodegaServidor.iniciarServicios();
     }
 }
