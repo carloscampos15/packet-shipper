@@ -55,11 +55,6 @@ public class BodegaServidor {
 
     public static void main(String[] args) {
         BodegaServidor bodegaServidor = new BodegaServidor("127.0.0.1");
-        
-        ArrayList<Camion> camiones = new ArrayList<>();
-        camiones.add(new Camion("OVJ-123", 1500));
-        camiones.add(new Camion("OVJ-284", 1200));
-        
         bodegaServidor.iniciarServicios();
     }
 }

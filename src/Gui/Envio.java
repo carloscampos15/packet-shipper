@@ -9,9 +9,10 @@ import Bodega.ClienteBodega;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;
+import Modelos.Ubicacion;
 import Recepcion.ClienteRecepcion;
 import java.util.ArrayList;
-import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +25,7 @@ public class Envio extends javax.swing.JDialog {
     private ClienteRecepcion clienteRecepcion;
     private ArrayList<Paquete> paquetes;
     private DefaultTableModel model;
+    private ArrayList<Ciudad> ciudades;
 
     /**
      * Creates new form Envio
@@ -52,7 +54,7 @@ public class Envio extends javax.swing.JDialog {
         this.model = (DefaultTableModel) jTable1.getModel();
         if (this.paquetes != null) {
             for (Paquete paquete : this.paquetes) {
-                model.addRow(new Object[]{paquete.getNombreEmisor(), paquete.getNombreReceptor(), paquete.getCiudadReceptor(), paquete.getPeso(), false});
+                model.addRow(new Object[]{paquete.getNombreEmisor(), paquete.getNombreReceptor(), paquete.getCiudadEmisor(), paquete.getCiudadReceptor(), paquete.getPeso(), paquete.getEstado()});
             }
         }
     }
@@ -84,14 +86,14 @@ public class Envio extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Emisor", "Receptor", "Ciudad Destino", "Peso", "Enviar"
+                "Emisor", "Receptor", "Ciudad Origen", "Ciudad Destino", "Peso", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -186,18 +188,38 @@ public class Envio extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Vector vector = model.getDataVector();
-        for (Object object : vector) {
-            Vector v = (Vector) object;
-            boolean envio = (boolean) v.elementAt(4);
-            System.out.println(envio);
+        String ciudad = jComboBox2.getSelectedItem().toString();
+        double peso = 0;
+        if (ciudad.equals("")) {
+            JOptionPane.showMessageDialog(null, "Hay Campos vacios");
+            return;
         }
+
+        try {
+            peso = Double.parseDouble(jTextField1.getText());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "El campo peso no es valido");
+            return;
+        }
+
+        Ubicacion ubicacion = null;
+        
+        for (Ciudad c : this.ciudades) {
+            if(c.getNombre().equals(ciudad)){
+                ubicacion = c.getUbicacion();
+                break;
+            }
+        }
+
+        this.clienteBodega.solicitarEnvioPaquetes(ubicacion, peso);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         String nombreCiudad = jComboBox1.getSelectedItem().toString();
         jComboBox2.removeAllItems();
-        for (Ciudad ciudad : this.clienteRecepcion.obtenerCiudades(nombreCiudad)) {
+        this.ciudades = this.clienteRecepcion.obtenerCiudades(nombreCiudad);
+        for (Ciudad ciudad : this.ciudades) {
             jComboBox2.addItem(ciudad.getNombre());
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed

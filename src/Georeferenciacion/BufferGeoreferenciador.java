@@ -30,9 +30,7 @@ public class BufferGeoreferenciador extends Thread {
 
     private Paquete asignarCiudad(Paquete paquete) {
         Ciudad ciudad = this.georeferenciadorImpl.obtenerCiudad(paquete.getCiudadReceptor(), paquete.getDepartamentoReceptor());
-        paquete.setLatitudReceptor(ciudad.getLatitud());
-        paquete.setLongitudReceptor(ciudad.getLongitud());
-        //paquete.setUbicacion(ciudad.getUbicacion());
+        paquete.setUbicacion(ciudad.getUbicacion());
         return paquete;
     }
 

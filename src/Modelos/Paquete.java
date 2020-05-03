@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
  */
-public class Paquete implements Serializable {
+public class Paquete implements Serializable, Comparable<Paquete> {
 
     private String nombreEmisor;
     private String departamentoEmisor;
@@ -21,15 +21,14 @@ public class Paquete implements Serializable {
     private String nombreReceptor;
     private String departamentoReceptor;
     private String ciudadReceptor;
-    //private Ubicacion ubicacion;
-    private String latitudReceptor;
-    private String longitudReceptor;
+    private Ubicacion ubicacion;
     private String fechaRecibido;
     private String fechaEnvio;
     private String estado;
-    private float peso;
+    private double peso;
+    private double distanciaDestino;
     
-    public Paquete(String nombreEmisor, String departamentoEmisor, String ciudadEmisor, String nombreReceptor, String departamentoReceptor, String ciudadReceptor, float peso) {
+    public Paquete(String nombreEmisor, String departamentoEmisor, String ciudadEmisor, String nombreReceptor, String departamentoReceptor, String ciudadReceptor, double peso) {
         this.nombreEmisor = nombreEmisor;
         this.ciudadEmisor = ciudadEmisor;
         this.nombreReceptor = nombreReceptor;
@@ -87,22 +86,6 @@ public class Paquete implements Serializable {
         this.ciudadReceptor = ciudadReceptor;
     }
 
-    public String getLatitudReceptor() {
-        return latitudReceptor;
-    }
-
-    public void setLatitudReceptor(String latitudReceptor) {
-        this.latitudReceptor = latitudReceptor;
-    }
-
-    public String getLongitudReceptor() {
-        return longitudReceptor;
-    }
-
-    public void setLongitudReceptor(String longitudReceptor) {
-        this.longitudReceptor = longitudReceptor;
-    }
-
     public String getFechaRecibido() {
         return fechaRecibido;
     }
@@ -127,19 +110,32 @@ public class Paquete implements Serializable {
         this.estado = estado;
     }
 
-    public float getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(float peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
-//    public Ubicacion getUbicacion() {
-//        return ubicacion;
-//    }
-//
-//    public void setUbicacion(Ubicacion ubicacion) {
-//        this.ubicacion = ubicacion;
-//    }
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public double getDistanciaDestino() {
+        return distanciaDestino;
+    }
+
+    public void setDistanciaDestino(double distanciaDestino) {
+        this.distanciaDestino = distanciaDestino;
+    }
+
+    @Override
+    public int compareTo(Paquete paquete) {
+        return (int) (this.distanciaDestino - paquete.getDistanciaDestino());
+    }
 }

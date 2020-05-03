@@ -7,7 +7,9 @@ package Bodega;
 
 import Modelos.Constante;
 import Modelos.Paquete;
+import Modelos.Ubicacion;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -15,36 +17,86 @@ import java.util.ArrayList;
  */
 public class BufferBodega extends Thread {
 
-    private ArrayList<Paquete> paquetes;
+    private ArrayList<Paquete> paquetesAlmacenar;
+    private ArrayList<Paquete> paquetesEnviar;
     private BodegaImpl bodegaImpl;
+    private Ubicacion ubicacionEnvio;
+    private double pesoEnvio;
 
     public BufferBodega(BodegaImpl bodegaImpl) {
         this.bodegaImpl = bodegaImpl;
-        this.paquetes = new ArrayList<>();
+        this.paquetesAlmacenar = new ArrayList<>();
     }
 
     public void agregarPaquete(Paquete paquete) {
-        this.paquetes.add(paquete);
+        this.paquetesAlmacenar.add(paquete);
     }
 
-    private void almacenarEnBodega() {
+    public void agregarPaquetesEnviar(ArrayList<Paquete> paquetesEnviar, Ubicacion ubicacion, double peso) {
+        this.paquetesEnviar = paquetesEnviar;
+        this.ubicacionEnvio = ubicacion;
+        this.pesoEnvio = peso;
+    }
+
+    private void procesarEnvio() {
+        ArrayList<Paquete> paquetesBodega = new ArrayList<>();
+        for (Paquete paquete : paquetesEnviar) {
+            paquete.setDistanciaDestino(ubicacionEnvio.calcularDistancia(paquete.getUbicacion().getLatitud(),
+                    ubicacionEnvio.getLatitud(), paquete.getUbicacion().getLongitud(), ubicacionEnvio.getLongitud()));
+        }
+        //Primero ordernar por la distancia que hay al destino
+        Collections.sort(paquetesEnviar);
+        double pesoTotal = 0;
+        for (Paquete paquete : paquetesEnviar) {
+            if (pesoTotal + paquete.getPeso() <= pesoEnvio) {
+                pesoTotal += paquete.getPeso();
+                paquete.setEstado(Constante.ENVIADO);
+                paquete.setFechaEnvio(java.time.LocalDate.now()+"");
+            } else {
+                paquetesBodega.add(paquete);
+                paquetesEnviar.remove(paquete);
+            }
+        }
+        this.bodegaImpl.enviarPaquetes(this.paquetesEnviar, paquetesBodega, pesoEnvio);
+    }
+
+    private void procesosBodega() {
         while (true) {
-            if (paquetes.size() >= 1) {
+            if (paquetesAlmacenar.size() >= 1) {
                 try {
                     System.out.println("##################################");
                     System.out.println("Iniciando almacenamiento en bodega");
 
                     long inicio = System.currentTimeMillis();
                     Thread.sleep(Constante.TIEMPO_ALMACENAMIENTO);
-                    Paquete paquete = paquetes.get(0);
+                    Paquete paquete = paquetesAlmacenar.get(0);
 
                     long fin = System.currentTimeMillis();
                     double tiempo = (double) ((fin - inicio) / 1000);
                     System.out.println("fin: " + tiempo + " segundos");
 
-                    this.paquetes.remove(paquete);
-                    
+                    this.paquetesAlmacenar.remove(paquete);
+
                     this.bodegaImpl.almacenarEnBodega(paquete);
+                } catch (InterruptedException ex) {
+                    System.out.println("[Servidor] (InterruptedException) " + ex.getMessage());
+                }
+            }
+            if (paquetesEnviar != null) {
+                try {
+                    System.out.println("##################################");
+                    System.out.println("Iniciando preparacion de envio");
+
+                    long inicio = System.currentTimeMillis();
+                    Thread.sleep(Constante.TIEMPO_PREPARACION_ENVIO);
+
+                    this.procesarEnvio();
+
+                    long fin = System.currentTimeMillis();
+                    double tiempo = (double) ((fin - inicio) / 1000);
+                    System.out.println("fin: " + tiempo + " segundos");
+
+                    this.paquetesEnviar = null;
                 } catch (InterruptedException ex) {
                     System.out.println("[Servidor] (InterruptedException) " + ex.getMessage());
                 }
@@ -56,6 +108,6 @@ public class BufferBodega extends Thread {
 
     @Override
     public void run() {
-        almacenarEnBodega();
+        procesosBodega();
     }
 }

@@ -6,6 +6,7 @@
 package Modelos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,27 +14,37 @@ import java.io.Serializable;
  */
 public class Camion implements Serializable {
 
-    private String placa;
-    private float capacidad;
+    private int id;
+    private double capacidad;
+    private ArrayList<Paquete> paquetes;
 
-    public Camion(String placa, float capacidad) {
-        this.placa = placa;
+    public Camion(int id, double capacidad, ArrayList<Paquete> paquetes) {
+        this.id = id;
         this.capacidad = capacidad;
+        this.paquetes = paquetes;
     }
 
-    public String getPlaca() {
-        return placa;
+    public int getId() {
+        return id;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public float getCapacidad() {
+    public double getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(float capacidad) {
+    public void setCapacidad(double capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public ArrayList<Paquete> getPaquetes() {
+        return paquetes;
+    }
+
+    public void setPaquetes(ArrayList<Paquete> paquetes) {
+        this.paquetes = paquetes;
     }
 }

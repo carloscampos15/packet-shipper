@@ -5,7 +5,9 @@
  */
 package Bodega;
 
+import Modelos.Camion;
 import Modelos.Paquete;
+import Modelos.Ubicacion;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -47,6 +49,24 @@ public class ClienteBodega {
     public ArrayList<Paquete> obtenerPaquetesBodega(){
         try {
             return this.bodega.obtenerPaquetesBodega();
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return null;
+    }
+    
+    public boolean solicitarEnvioPaquetes(Ubicacion ubicacion, double peso){
+        try {
+            return this.bodega.solicitarEnvioPaquetes(ubicacion, peso);
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return false;
+    }
+    
+    public ArrayList<Camion> obtenerCamiones() {
+        try {
+            return this.bodega.obtenerCamiones();
         } catch (RemoteException ex) {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }

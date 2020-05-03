@@ -8,6 +8,7 @@ package Bodega;
 import Modelos.Camion;
 import Modelos.Constante;
 import Modelos.Paquete;
+import Modelos.Ubicacion;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -44,9 +45,25 @@ public class BodegaImpl implements Bodega {
     public ArrayList<Paquete> obtenerPaquetesBodega() throws RemoteException {
         ArrayList<Paquete> paquetes = new ArrayList<>();
         for(Paquete paquete : this.paquetesEnBodega){
-            if(paquete.getEstado().equals(Constante.ALMACENADO))
-                paquetes.add(paquete);
+            paquetes.add(paquete);
         }
         return paquetes;
+    }
+
+    @Override
+    public boolean solicitarEnvioPaquetes(Ubicacion ubicacion, double peso) throws RemoteException {
+        this.bufferBodega.agregarPaquetesEnviar(this.paquetesEnBodega, ubicacion, peso);
+        return true;
+    }
+    
+    public boolean enviarPaquetes(ArrayList<Paquete> paquetesEnviar, ArrayList<Paquete> paquetesEnBodega, double capacidad){
+        this.paquetesEnBodega = paquetesEnBodega;
+        camiones.add(new Camion(camiones.size()+1, capacidad, paquetesEnviar));
+        return true;
+    }
+
+    @Override
+    public ArrayList<Camion> obtenerCamiones() throws RemoteException {
+        return this.camiones;
     }
 }

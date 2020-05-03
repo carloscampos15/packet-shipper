@@ -17,25 +17,15 @@ public class Ciudad implements Serializable {
 
     private String nombre;
     private String departamento;
-    private String latitud;
-    private String longitud;
-    //private Ubicacion ubicacion;
+    private Ubicacion ubicacion;
     private int codigo;
 
-    public Ciudad(String nombre, String departamento, String latitud, String longitud, int codigo) {
+    public Ciudad(String nombre, String departamento, Ubicacion ubicacion, int codigo) {
         this.nombre = nombre;
         this.departamento = departamento;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.ubicacion = ubicacion;
         this.codigo = codigo;
     }
-    
-//    public Ciudad(String nombre, String departamento, Ubicacion ubicacion, int codigo) {
-//        this.nombre = nombre;
-//        this.departamento = departamento;
-//        this.ubicacion = ubicacion;
-//        this.codigo = codigo;
-//    }
 
     public String getNombre() {
         return nombre;
@@ -60,28 +50,13 @@ public class Ciudad implements Serializable {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
-//    public Ubicacion getUbicacion() {
-//        return ubicacion;
-//    }
-//
-//    public void setUbicacion(Ubicacion ubicacion) {
-//        this.ubicacion = ubicacion;
-//    }
 
-    public String getLatitud() {
-        return latitud;
+    public Ubicacion getUbicacion() {
+        return ubicacion;
     }
 
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
-    public String getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(String longitud) {
-        this.longitud = longitud;
-    }
 }

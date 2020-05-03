@@ -14,6 +14,7 @@ public class Constante {
     public final static int TIEMPO_REFERENCIADOR = 5000;
     public final static int TIEMPO_REGISTRO = 10000;
     public final static int TIEMPO_ALMACENAMIENTO = 20000;
+    public final static int TIEMPO_PREPARACION_ENVIO = 30000;
     
     //estados del paquete
     public final static String ALMACENADO = "ALMACENADO";

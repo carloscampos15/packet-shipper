@@ -62,8 +62,7 @@ public class UbicacionBD {
         String sql1 = "SELECT * FROM ciudades WHERE departamento = '" + nombreDepartamento + "'";
         ResultSet rs = statement.executeQuery(sql1);
         while (rs.next()) {
-            //ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getString("latitud"), rs.getString("longitud")), rs.getInt("codigo")));
-            ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo")));
+            ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getDouble("latitud"), rs.getDouble("longitud")), rs.getInt("codigo")));
         }
         return ciudades;
     }
@@ -84,8 +83,7 @@ public class UbicacionBD {
         String sql1 = "SELECT * FROM ciudades WHERE ciudad = '" + nombreCiudad + "' and departamento = '" + nombreDepartamento + "'";
         ResultSet rs = statement.executeQuery(sql1);
         while (rs.next()) {
-            //return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getString("latitud"), rs.getString("longitud")), rs.getInt("codigo"));
-            return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo"));
+            return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getDouble("latitud"), rs.getDouble("longitud")), rs.getInt("codigo"));
         }
         return null;
     }
