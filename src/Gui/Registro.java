@@ -159,7 +159,7 @@ public class Registro extends javax.swing.JDialog {
         String departamentoEmisor = jComboBox1.getSelectedItem().toString();
         String ciudadEmisor = jComboBox2.getSelectedItem().toString();
 
-        String nombreReceptor = jTextField1.getText();
+        String nombreReceptor = jTextField2.getText();
         String departamentoReceptor = jComboBox3.getSelectedItem().toString();
         String ciudadReceptor = jComboBox4.getSelectedItem().toString();
         float pesoPaquete = 0;

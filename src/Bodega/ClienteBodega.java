@@ -5,12 +5,12 @@
  */
 package Bodega;
 
-import Bodega.Bodega;
 import Modelos.Paquete;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,5 +42,14 @@ public class ClienteBodega {
             System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
         }
         return false;
+    }
+    
+    public ArrayList<Paquete> obtenerPaquetesBodega(){
+        try {
+            return this.bodega.obtenerPaquetesBodega();
+        } catch (RemoteException ex) {
+            System.out.println("[Cliente] (RemoteException): " + ex.getMessage());
+        }
+        return null;
     }
 }

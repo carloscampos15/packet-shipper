@@ -8,25 +8,27 @@ package Modelos;
 import java.io.Serializable;
 
 /**
- * 
+ *
  *
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
  */
-public class Paquete implements Serializable{
+public class Paquete implements Serializable {
+
     private String nombreEmisor;
     private String departamentoEmisor;
     private String ciudadEmisor;
     private String nombreReceptor;
     private String departamentoReceptor;
     private String ciudadReceptor;
+    //private Ubicacion ubicacion;
     private String latitudReceptor;
     private String longitudReceptor;
     private String fechaRecibido;
     private String fechaEnvio;
     private String estado;
     private float peso;
-
+    
     public Paquete(String nombreEmisor, String departamentoEmisor, String ciudadEmisor, String nombreReceptor, String departamentoReceptor, String ciudadReceptor, float peso) {
         this.nombreEmisor = nombreEmisor;
         this.ciudadEmisor = ciudadEmisor;
@@ -132,4 +134,12 @@ public class Paquete implements Serializable{
     public void setPeso(float peso) {
         this.peso = peso;
     }
+
+//    public Ubicacion getUbicacion() {
+//        return ubicacion;
+//    }
+//
+//    public void setUbicacion(Ubicacion ubicacion) {
+//        this.ubicacion = ubicacion;
+//    }
 }

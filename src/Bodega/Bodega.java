@@ -8,6 +8,7 @@ package Bodega;
 import Modelos.Paquete;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,4 +16,5 @@ import java.rmi.RemoteException;
  */
 public interface Bodega extends Remote{
     boolean almacenarPaquete(Paquete paquete) throws RemoteException;
+    ArrayList<Paquete> obtenerPaquetesBodega() throws RemoteException;
 }

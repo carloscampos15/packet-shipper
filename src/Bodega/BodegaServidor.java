@@ -5,10 +5,12 @@
  */
 package Bodega;
 
+import Modelos.Camion;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  *
@@ -53,6 +55,11 @@ public class BodegaServidor {
 
     public static void main(String[] args) {
         BodegaServidor bodegaServidor = new BodegaServidor("127.0.0.1");
+        
+        ArrayList<Camion> camiones = new ArrayList<>();
+        camiones.add(new Camion("OVJ-123", 1500));
+        camiones.add(new Camion("OVJ-284", 1200));
+        
         bodegaServidor.iniciarServicios();
     }
 }

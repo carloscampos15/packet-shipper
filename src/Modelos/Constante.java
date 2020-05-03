@@ -10,7 +10,12 @@ package Modelos;
  * @author carlo
  */
 public class Constante {
+    //cargas de datos por metodo remoto
     public final static int TIEMPO_REFERENCIADOR = 5000;
     public final static int TIEMPO_REGISTRO = 10000;
     public final static int TIEMPO_ALMACENAMIENTO = 20000;
+    
+    //estados del paquete
+    public final static String ALMACENADO = "ALMACENADO";
+    public final static String ENVIADO = "ENVIADO";
 }

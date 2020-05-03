@@ -32,6 +32,7 @@ public class BufferGeoreferenciador extends Thread {
         Ciudad ciudad = this.georeferenciadorImpl.obtenerCiudad(paquete.getCiudadReceptor(), paquete.getDepartamentoReceptor());
         paquete.setLatitudReceptor(ciudad.getLatitud());
         paquete.setLongitudReceptor(ciudad.getLongitud());
+        //paquete.setUbicacion(ciudad.getUbicacion());
         return paquete;
     }
 
@@ -52,12 +53,12 @@ public class BufferGeoreferenciador extends Thread {
                     System.out.println("fin: " + tiempo + " segundos");
 
                     this.paquetes.remove(paquete);
-                    
+
                     this.georeferenciadorImpl.encolarPaquete(paquete);
                 } catch (InterruptedException ex) {
                     System.out.println("[Servidor] (InterruptedException) " + ex.getMessage());
                 }
-            }else{
+            } else {
                 System.getProperties();
             }
         }

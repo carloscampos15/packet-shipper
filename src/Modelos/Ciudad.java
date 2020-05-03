@@ -8,16 +8,18 @@ package Modelos;
 import java.io.Serializable;
 
 /**
- * 
+ *
  *
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
  */
-public class Ciudad implements Serializable{
+public class Ciudad implements Serializable {
+
     private String nombre;
     private String departamento;
     private String latitud;
     private String longitud;
+    //private Ubicacion ubicacion;
     private int codigo;
 
     public Ciudad(String nombre, String departamento, String latitud, String longitud, int codigo) {
@@ -27,6 +29,13 @@ public class Ciudad implements Serializable{
         this.longitud = longitud;
         this.codigo = codigo;
     }
+    
+//    public Ciudad(String nombre, String departamento, Ubicacion ubicacion, int codigo) {
+//        this.nombre = nombre;
+//        this.departamento = departamento;
+//        this.ubicacion = ubicacion;
+//        this.codigo = codigo;
+//    }
 
     public String getNombre() {
         return nombre;
@@ -44,6 +53,22 @@ public class Ciudad implements Serializable{
         this.departamento = departamento;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
+//    public Ubicacion getUbicacion() {
+//        return ubicacion;
+//    }
+//
+//    public void setUbicacion(Ubicacion ubicacion) {
+//        this.ubicacion = ubicacion;
+//    }
+
     public String getLatitud() {
         return latitud;
     }
@@ -58,13 +83,5 @@ public class Ciudad implements Serializable{
 
     public void setLongitud(String longitud) {
         this.longitud = longitud;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 }

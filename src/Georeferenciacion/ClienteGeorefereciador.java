@@ -5,7 +5,6 @@
  */
 package Georeferenciacion;
 
-import Georeferenciacion.Georeferenciador;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;

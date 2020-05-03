@@ -5,6 +5,7 @@
  */
 package Gui;
 
+import Bodega.ClienteBodega;
 import Recepcion.ClienteRecepcion;
 
 /**
@@ -16,6 +17,7 @@ import Recepcion.ClienteRecepcion;
 public class Home extends javax.swing.JFrame {
 
     private ClienteRecepcion clienteRecepcion;
+    private ClienteBodega clienteBodega;
     
     /**
      * Creates new form Home
@@ -23,6 +25,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.clienteRecepcion = new ClienteRecepcion("127.0.0.1");
+        this.clienteBodega = new ClienteBodega("127.0.0.1");
         setLocationRelativeTo(null);
     }
 
@@ -36,6 +39,7 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,7 +51,15 @@ public class Home extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 177, 53));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 190, 53));
+
+        jButton2.setText("Solicitar envio de paquetes");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 190, 53));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gato.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, -1, 730, 460));
@@ -60,6 +72,13 @@ public class Home extends javax.swing.JFrame {
         registro.setClienteRecepcion(this.clienteRecepcion);
         registro.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Envio envio = new Envio(this, true);
+        envio.setClienteBodega(this.clienteBodega);
+        envio.setClienteRecepcion(this.clienteRecepcion);
+        envio.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,6 +117,7 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,6 @@ package Recepcion;
 import Modelos.Ciudad;
 import Modelos.Departamento;
 import Modelos.Paquete;
-import Recepcion.Recepcion;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

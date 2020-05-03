@@ -7,6 +7,7 @@ package Georeferenciacion;
 
 import Modelos.Ciudad;
 import Modelos.Departamento;
+import Modelos.Ubicacion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  *
  * @author Karen Dayanna Castaño Orjuela
  * @author Carlos Alberto Campos Armero
@@ -61,6 +62,7 @@ public class UbicacionBD {
         String sql1 = "SELECT * FROM ciudades WHERE departamento = '" + nombreDepartamento + "'";
         ResultSet rs = statement.executeQuery(sql1);
         while (rs.next()) {
+            //ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getString("latitud"), rs.getString("longitud")), rs.getInt("codigo")));
             ciudades.add(new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo")));
         }
         return ciudades;
@@ -82,6 +84,7 @@ public class UbicacionBD {
         String sql1 = "SELECT * FROM ciudades WHERE ciudad = '" + nombreCiudad + "' and departamento = '" + nombreDepartamento + "'";
         ResultSet rs = statement.executeQuery(sql1);
         while (rs.next()) {
+            //return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), new Ubicacion(rs.getString("latitud"), rs.getString("longitud")), rs.getInt("codigo"));
             return new Ciudad(rs.getString("ciudad"), rs.getString("departamento"), rs.getString("latitud"), rs.getString("longitud"), rs.getInt("codigo"));
         }
         return null;
