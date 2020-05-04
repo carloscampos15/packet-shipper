@@ -21,11 +21,13 @@ public class BufferBodega extends Thread {
     private ArrayList<Paquete> paquetesEnviar;
     private BodegaImpl bodegaImpl;
     private Ubicacion ubicacionEnvio;
+    private boolean state;
     private double pesoEnvio;
 
     public BufferBodega(BodegaImpl bodegaImpl) {
         this.bodegaImpl = bodegaImpl;
         this.paquetesAlmacenar = new ArrayList<>();
+        this.state = true;
     }
 
     public void agregarPaquete(Paquete paquete) {
@@ -58,6 +60,7 @@ public class BufferBodega extends Thread {
             }
         }
         this.bodegaImpl.enviarPaquetes(this.paquetesEnviar, paquetesBodega, pesoEnvio);
+        this.state = true;
     }
 
     private void procesosBodega() {
@@ -82,11 +85,12 @@ public class BufferBodega extends Thread {
                     System.out.println("[Servidor] (InterruptedException) " + ex.getMessage());
                 }
             }
-            if (paquetesEnviar != null) {
+            if (paquetesEnviar != null && this.state) {
                 try {
+                    this.state = false;
                     System.out.println("##################################");
                     System.out.println("Iniciando preparacion de envio");
-
+                    
                     long inicio = System.currentTimeMillis();
                     Thread.sleep(Constante.TIEMPO_PREPARACION_ENVIO);
 
